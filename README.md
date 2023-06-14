@@ -20,6 +20,7 @@
     - [Codespaces:](#codespaces)
     - [Locally](#locally)
 - [🔧 Run pytest ](#-run-pytest-)
+- [:cloud: Deployment ](#cloud-deployment-)
 - [🎈 Guide ](#-guide-)
 - [💪 Advanced ](#-advanced-)
 - [⛏️ Built Using ](#️-built-using-)
@@ -30,9 +31,11 @@
 
 You can build a beautiful web application using nothing more than Python, htmx, and TailwindCSS. Create dynamic pages using the power of Jinja templates and server-side rendering to create a Hypertext driven application.
 
+Also, it contains infrastructure files for easy deployment using Azure Developer CLI (`azd up`) and Azure App Services. No database needed!
+
 ## 🏁 Getting Started <a name = "getting_started"></a>
 
-This repository was prepared for a PyCon tutorial on how to create a python-backed frontend, featuring Jinja templates for HTML rendering, TailwindCSS for style, and htmx for pizzazz! 😎
+This repository was prepared for a [PyCon tutorial](https://youtu.be/YUoflPpVLjQ) on how to create a python-backed frontend, featuring Jinja templates for HTML rendering, TailwindCSS for style, and htmx for pizzazz! 😎
 
 The [tutorial](https://us.pycon.org/2023/schedule/presentation/151/) is scheduled for Wednesday, April 19th, 2023 from 9 - 12:30pm (Mountain Time).
 
@@ -134,6 +137,34 @@ pytest
 > **Note**
 > The application does not include comprehensive testing (yet). As of now, if the tests pass, it means that the application runs and generates a response.
 
+## :cloud: Deployment <a name="deployment"></a>
+
+This repo is set up for deployment using [Azure App Services](https://learn.microsoft.com/en-us/azure/app-service/overview), with a [Log Analytics workspace](https://learn.microsoft.com/en-us/azure/azure-monitor/). It does not require a database provision, since we are using a local file with TinyDB.
+
+![azure diagram](https://raw.githubusercontent.com/tataraba/musicbinder-azd/main/data/fastapi-apps-loganalytics.png)
+
+Steps for deployment:
+
+1.  Sign up for a [free Azure account](https://azure.microsoft.com/free/) and create an Azure Subscription.
+2.  Install the [Azure Developer CLI](https://learn.microsoft.com/azure/developer/azure-developer-cli/install-azd).
+3.  Login to Azure through the terminal:
+    ```
+    azd auth login
+    ```
+4.  Provision and deploy all the resources:
+    ```
+    azd up
+    ```
+
+    This will prompt you to provide an environment name (such as "musicbinder-app"), select a subscription from your Azure account, and select a location (_I recommend "useast", as choosing a different location may have availability constraints_). This will provision the resources in your account and deploy your latest code. If you receive an error, try changing locations again or seek out support.
+
+5.  When the deployment is done, you'll see and endpoint URI in the terminal output. This should send you to the Music Binder front page!
+6.  If you may any changes to the app code, you can redeploy by running:
+    ```
+    azd deploy
+    ```
+> **Note**
+> ⚠️ To avoid unnecessary costs, remember to take down your app if it's no longer in use, either by deleting the resource group in the Portal or running azd down.
 
 ## 🎈 Guide <a name="guide"></a>
 
@@ -143,7 +174,7 @@ The repo includes [documentation](https://github.com/tataraba/simplesite/blob/ma
 
 ## 💪 Advanced <a name="advanced"></a>
 
-The `advanced-features` branch showcases a few features of TailwindCSS and htmx. If you're learning how to use either of the tools, try to tackle them yourself before looking at the branch for solutions. Some of this will be covered in the workshop.
+The `advanced-features` branch showcases a few more features of TailwindCSS and htmx. If you're learning how to use either of the tools, try to tackle them yourself before looking at the branch for solutions. Some of this will be covered in the workshop.
 
 ## ⛏️ Built Using <a name = "built_using"></a>
 

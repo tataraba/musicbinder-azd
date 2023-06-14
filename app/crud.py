@@ -43,7 +43,7 @@ class CRUD:
 
     def all_items(self):
         if not self.db:
-            self.init_db
+            self.init_db  #noqa
         if self.table:
             self.db = self.table
         return self.db.all()
@@ -91,4 +91,3 @@ class CRUD:
         _db = crud.init_db
         _table = _db.table(table_name)
         return cls(db=_db, table=_table)
-
