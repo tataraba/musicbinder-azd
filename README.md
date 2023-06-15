@@ -33,7 +33,7 @@ You can build a beautiful web application using nothing more than Python, htmx, 
 
 Also, it contains infrastructure files for easy deployment using Azure Developer CLI (`azd up`) and Azure App Services. No database needed!
 
-## 🏁 Getting Started <a name = "getting_started"></a>
+## 🏁 Getting Started <a name = "-getting-started-"></a>
 
 This repository was prepared for a [PyCon tutorial](https://youtu.be/YUoflPpVLjQ) on how to create a python-backed frontend, featuring Jinja templates for HTML rendering, TailwindCSS for style, and htmx for pizzazz! 😎
 
