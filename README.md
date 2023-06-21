@@ -163,7 +163,7 @@ Steps for deployment:
     ```
     azd deploy
     ```
-> **Note**
+> **Warning**
 > ⚠️ To avoid unnecessary costs, remember to take down your app if it's no longer in use, either by deleting the resource group in the Portal or running `azd down` in the command line.
 
 ## 🎈 Guide <a name="guide"></a>
