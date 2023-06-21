@@ -158,13 +158,13 @@ Steps for deployment:
 
     This will prompt you to provide an environment name (such as "musicbinder-app"), select a subscription from your Azure account, and select a location (_I recommend "useast", as choosing a different location may have availability constraints_). This will provision the resources in your account and deploy your latest code. If you receive an error, try changing locations again or seek out support.
 
-5.  When the deployment is done, you'll see and endpoint URI in the terminal output. This should send you to the Music Binder front page!
-6.  If you may any changes to the app code, you can redeploy by running:
+5.  When the deployment is done, you'll see an endpoint URI in the terminal output. This should send you to the Music Binder front page!
+6.  If you make any changes to the app code, you can redeploy by running:
     ```
     azd deploy
     ```
 > **Note**
-> ⚠️ To avoid unnecessary costs, remember to take down your app if it's no longer in use, either by deleting the resource group in the Portal or running azd down.
+> ⚠️ To avoid unnecessary costs, remember to take down your app if it's no longer in use, either by deleting the resource group in the Portal or running `azd down` in the command line.
 
 ## 🎈 Guide <a name="guide"></a>
 
