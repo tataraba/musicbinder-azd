@@ -7,34 +7,29 @@ targetScope = 'subscription'
 @minLength(1)
 @maxLength(64)
 @description('Name of the the environment which is used to generate a short unique hash used in all resources.')
-param name string
+param environmentName string
 
 @minLength(1)
 @description('Primary location for all resources')
 param location string
 
-
 // tags that should be applied to all resources.
 var tags = {
   // Tag all resources with the environment name.
-  'azd-env-name': name
+  'azd-env-name': environmentName
 }
 
 // Generate a unique token to be used in naming resources.
-// Remove linter suppression after using.
-#disable-next-line no-unused-vars
-var resourceToken = toLower(uniqueString(subscription().id, name, location))
-
+var resourceToken = toLower(uniqueString(subscription().id, environmentName, location))
 
 // Organize resources in a resource group
 resource resourceGroup 'Microsoft.Resources/resourceGroups@2021-04-01' = {
-  name: '${name}-rg'
+  name: '${environmentName}-rg'
   location: location
   tags: tags
 }
 
-
-var prefix = '${name}-${resourceToken}'
+var prefix = '${environmentName}-${resourceToken}'
 
 // Add resources to be provisioned below.
 // A full example that leverages azd bicep modules can be seen in the todo-python-mongo template:
