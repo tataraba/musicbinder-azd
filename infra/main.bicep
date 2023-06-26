@@ -13,6 +13,9 @@ param environmentName string
 @description('Primary location for all resources')
 param location string
 
+// abbrevations located in abbreviations.json for consistency
+var abbrs = loadJsonContent('./abbreviations.json')
+
 // tags that should be applied to all resources.
 var tags = {
   // Tag all resources with the environment name.
@@ -24,12 +27,11 @@ var resourceToken = toLower(uniqueString(subscription().id, environmentName, loc
 
 // Organize resources in a resource group
 resource resourceGroup 'Microsoft.Resources/resourceGroups@2021-04-01' = {
-  name: '${environmentName}-rg'
+  name: '${abbrs.resourcesResourceGroups}${environmentName}'
   location: location
   tags: tags
 }
 
-var prefix = '${environmentName}-${resourceToken}'
 
 // Add resources to be provisioned below.
 // A full example that leverages azd bicep modules can be seen in the todo-python-mongo template:
@@ -39,7 +41,7 @@ module web 'core/host/appservice.bicep' = {
   name: 'appservice'
   scope: resourceGroup
   params: {
-    name: '${prefix}-appservice'
+    name: '${abbrs.webSitesAppService}-${environmentName}-${resourceToken}'
     location: location
     tags: union(tags, { 'azd-service-name': 'app' })
     appServicePlanId: appServicePlan.outputs.id
@@ -55,7 +57,7 @@ module appServicePlan 'core/host/appserviceplan.bicep' = {
   name: 'serviceplan'
   scope: resourceGroup
   params: {
-    name: '${prefix}-serviceplan'
+    name: '${abbrs.webServerFarms}-${environmentName}-${resourceToken}'
     location: location
     tags: tags
     sku: {
@@ -69,7 +71,7 @@ module logAnalyticsWorkspace 'core/monitor/loganalytics.bicep' = {
   name: 'loganalytics'
   scope: resourceGroup
   params: {
-    name: '${prefix}-loganalytics'
+    name: '${abbrs.operationalInsightsWorkspaces}-${environmentName}-${resourceToken}'
     location: location
     tags: tags
   }
