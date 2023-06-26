@@ -41,7 +41,7 @@ module web 'core/host/appservice.bicep' = {
   name: 'appservice'
   scope: resourceGroup
   params: {
-    name: '${abbrs.webSitesAppService}-${environmentName}-${resourceToken}'
+    name: '${abbrs.webSitesAppService}${environmentName}-${resourceToken}'
     location: location
     tags: union(tags, { 'azd-service-name': 'app' })
     appServicePlanId: appServicePlan.outputs.id
@@ -57,7 +57,7 @@ module appServicePlan 'core/host/appserviceplan.bicep' = {
   name: 'serviceplan'
   scope: resourceGroup
   params: {
-    name: '${abbrs.webServerFarms}-${environmentName}-${resourceToken}'
+    name: '${abbrs.webServerFarms}${environmentName}-${resourceToken}'
     location: location
     tags: tags
     sku: {
@@ -71,7 +71,7 @@ module logAnalyticsWorkspace 'core/monitor/loganalytics.bicep' = {
   name: 'loganalytics'
   scope: resourceGroup
   params: {
-    name: '${abbrs.operationalInsightsWorkspaces}-${environmentName}-${resourceToken}'
+    name: '${abbrs.operationalInsightsWorkspaces}${environmentName}-${resourceToken}'
     location: location
     tags: tags
   }
